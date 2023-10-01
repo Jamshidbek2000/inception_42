@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  nginx:
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    image: nginx_inception
+    container_name: nginx
+    init: true
+    environment:
+      - DOMAIN_NAME
+    networks:
+      - inception
+    # volumes:
+    #   - wordpress:/var/www/html
+    ports:
+      - "443:443"
+    restart: always
+
+
+
+networks:
+
+  inception:
+    driver: bridge
+
+

@@ -2,7 +2,7 @@ name = inception
 
 all: bind_mount
 	@printf "Launch configuration ${name}...\n"
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up 
 
 build: bind_mount
 	@printf "Building configuration ${name}...\n"

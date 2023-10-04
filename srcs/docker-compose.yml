@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   nginx:
     build:
       context: requirements/nginx
@@ -9,21 +8,51 @@ services:
     image: nginx_inception
     container_name: nginx
     init: true
-    environment:
-      - DOMAIN_NAME
+    env_file:
+      - .env
     networks:
       - inception
-    # volumes:
-    #   - wordpress:/var/www/html
+    volumes:
+      - wordpress:/var/www/html
     ports:
       - "443:443"
     restart: always
 
-
+  mariadb:
+    build:
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb_inception
+    container_name: mariadb
+    init: true
+    env_file:
+      - .env
+    expose:
+      - "9000"
+    networks:
+      - inception
+    volumes:
+      - mariadb:/var/lib/mysql
+    restart: always
 
 networks:
-
   inception:
     driver: bridge
 
+volumes:
+  wordpress:
+    name: wordpress_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/wordpress
+  
+  mariadb:
+    name: mariadb_volume
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/mariadb
 

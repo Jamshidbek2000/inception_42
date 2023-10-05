@@ -1,33 +1,54 @@
-# Use the Alpine Linux base image with a specific version
-# FROM alpine:3.14
 FROM debian:buster
 
-# Update package repository and install NGINX, OpenSSL, and other dependencies
-RUN apt update && apt install -y nginx openssl && apt clean
+RUN apt-get update && apt-get install -y \
+  wget \
+  curl \
+  mariadb-server \
+  php \
+  php-fpm
 
-# ----------------------------------------------------------------
-# Create the SSL directory if it doesn't exist
-RUN mkdir -p /etc/nginx/ssl/
-# ----------------------------------------------------------------
-
-# Generate a self-signed SSL certificate
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=DE/ST=Heilbronn/L=Heilbronn/O=42/CN=inception.com"
-
-# copy config file and script to docker container
-COPY configs/nginx.conf /etc/nginx/sites-available/
-COPY configs/nginx-entrypoint.sh .
-
-# ------------------------------------------------------------------------------------
-RUN export DOMAIN_NAME=jergashe.42.fr
-# ------------------------------------------------------------------------------------
-
-# give permission to execute the script (just in case)
-RUN chmod +x nginx-entrypoint.sh
-
+EXPOSE 80
 EXPOSE 443
 
-# this script will be first thing to run when container is started
-ENTRYPOINT [ "./nginx-entrypoint.sh" ]
+ENV DOMAIN_NAME=jergashe.42.fr \
+    DB_NAME=wordpress \
+    DB_USER=jergashe \
+    DB_USER_PWD=Pass222 \
+    DB_HOST=mariadb \
+    DB_ROOT_PWD=Pass111 \
+    WP_EMAIL=jergashe@student.42heilbronn.de
 
-# Start NGINX not in the background and to stay in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Start WordPress
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
+# CMD ["tail", "-f", "/dev/null"]
+
+
+
+# FROM debian:buster
+
+# # updating packages
+# RUN apt-get update && apt-get install -y \
+# 	php7.3 \
+# 	php-fpm \
+# 	php-cli \
+# 	wget \
+# 	curl \
+# 	php-mysql \
+# 	php-mbstring \
+# 	php-xml \
+# 	sendmail \
+# 	mariadb-client \
+# 	&& rm -rf /var/lib/apt/lists/* \
+# 	&& mkdir /run/php
+
+# RUN wget https://wordpress.org/wordpress-5.8.3.tar.gz \
+# 	&& tar -xvzf wordpress-5.8.3.tar.gz \
+# 	&& rm -rf wordpress-5.8.3.tar.gz
+
+
+# COPY configs/docker-entrypoint.sh /usr/local/bin/
+# COPY configs/wp-config.php /
+
+# ENTRYPOINT [ "docker-entrypoint.sh" ]
+
+# CMD [ "./usr/sbin/php-fpm7.3", "-F" ] 

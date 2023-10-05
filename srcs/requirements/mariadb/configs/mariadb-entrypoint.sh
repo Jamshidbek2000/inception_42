@@ -4,9 +4,11 @@
 service mysql start
 
 # Wait for MySQL to start
-while ! mysqladmin ping -hlocalhost -u$DB_USER -p$DB_USER_PWD --silent; do
-    sleep 1
-done
+# while ! mysqladmin ping -hlocalhost -u$DB_USER -p$DB_USER_PWD --silent; do
+#     sleep 1
+# done
+
+sleep 10
 
 
 # Create the MySQL database and user

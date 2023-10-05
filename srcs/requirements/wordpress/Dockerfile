@@ -19,8 +19,14 @@ ENV DOMAIN_NAME=jergashe.42.fr \
     WP_EMAIL=jergashe@student.42heilbronn.de
 
 # Start WordPress
-CMD ["/usr/sbin/php-fpm7.3", "-F"]
-# CMD ["tail", "-f", "/dev/null"]
+#CMD ["/usr/sbin/php-fpm7.3", "-F"]
+
+COPY configs/docker-entrypoint.sh /root/docker-entrypoint.sh
+
+WORKDIR "/root/"
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
 
 
 

@@ -21,5 +21,5 @@ if [[ ! -f /var/www/html/wp-config.php ]]; then
 
 fi
 
-# Start PHP-FPM
-service php7.3-fpm start
+mkdir -p /run/php
+php-fpm7.3 -F

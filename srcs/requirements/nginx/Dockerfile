@@ -18,7 +18,9 @@ COPY configs/nginx-entrypoint.sh .
 RUN chmod +x nginx-entrypoint.sh
 
 # this script will be first thing to run when container is started
-ENTRYPOINT [ "./nginx-entrypoint.sh" ]
+# ENTRYPOINT [ "./nginx-entrypoint.sh" ]
 
 # Start NGINX not in the background and to stay in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
+
+CMD ["tail", "-f", "/dev/null"]

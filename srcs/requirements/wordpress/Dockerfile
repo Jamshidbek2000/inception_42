@@ -7,26 +7,13 @@ RUN apt-get update && apt-get install -y \
   php \
   php-fpm
 
-EXPOSE 80
-EXPOSE 443
-
-ENV DOMAIN_NAME=jergashe.42.fr \
-    DB_NAME=wordpress \
-    DB_USER=jergashe \
-    DB_USER_PWD=Pass222 \
-    DB_HOST=mariadb \
-    DB_ROOT_PWD=Pass111 \
-    WP_EMAIL=jergashe@student.42heilbronn.de
-
-# Start WordPress
-#CMD ["/usr/sbin/php-fpm7.3", "-F"]
-
 COPY configs/docker-entrypoint.sh /root/docker-entrypoint.sh
+COPY configs/wp-config.php /
 
 WORKDIR "/root/"
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
-
+# ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["tail", "-f", "/dev/null"]
 
 
 

@@ -10,7 +10,7 @@ if [[ ! -f /var/www/html/wp-config.php ]]; then
   tar -xvzf wordpress.tar.gz -C /var/www/html
 
   # Move WordPress configuration files
-  mv /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
+  mv /var/www/html/wordpress/wp-config.php /var/www/html/
 
   # Change permissions
   chown -R www-data:www-data /var/www/html

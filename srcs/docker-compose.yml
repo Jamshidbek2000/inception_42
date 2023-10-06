@@ -31,8 +31,8 @@ services:
       - "3306"
     networks:
       - inception
-    volumes:
-      - mariadb:/var/lib/mysql
+    # volumes:
+    #   - mariadb:/var/lib/mysql
     restart: always
 
   wordpress:
@@ -60,7 +60,7 @@ networks:
 
 volumes:
   wordpress:
-    name: wordpress_volume
+    # name: wordpress_volume
     driver: local
     driver_opts:
       type: none
@@ -68,7 +68,7 @@ volumes:
       device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/wordpress
   
   mariadb:
-    name: mariadb_volume
+    # name: mariadb_volume
     driver: local
     driver_opts:
       type: 'none'

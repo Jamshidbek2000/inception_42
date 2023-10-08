@@ -13,7 +13,7 @@ services:
     networks:
       - inception
     volumes:
-      - wordpress:/var/www/html
+      - ../data/wordpress:/var/www/html
     ports:
       - "443:443"
     restart: always
@@ -31,47 +31,47 @@ services:
       - "3306"
     networks:
       - inception
-    # volumes:
-    #   - mariadb:/var/lib/mysql
+    volumes:
+      - ../data/mariadb:/var/lib/mysql
     restart: always
 
-  wordpress:
-    build:
-      context: requirements/wordpress
-      dockerfile: Dockerfile
-    image: wordpress_inception
-    container_name: wordpress
-    init: true
-    env_file:
-      - .env
-    networks:
-      - inception
-    expose:
-      - "9000"
-    depends_on:
-      - mariadb
-    volumes:
-      - wordpress:/var/www/html
-    restart: always
+  # wordpress:
+  #   build:
+  #     context: requirements/wordpress
+  #     dockerfile: Dockerfile
+  #   image: wordpress_inception
+  #   container_name: wordpress
+  #   init: true
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - inception
+  #   expose:
+  #     - "9000"
+  #   depends_on:
+  #     - mariadb
+  #   volumes:
+  #     - ../data/wordpress:/var/www/html
+  #   restart: always
 
 networks:
   inception:
     driver: bridge
 
-volumes:
-  wordpress:
-    # name: wordpress_volume
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/wordpress
+# volumes:
+#   wordpress:
+#     # name: wordpress_volume
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/wordpress
   
-  mariadb:
-    # name: mariadb_volume
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/mariadb
+#   mariadb:
+#     # name: mariadb_volume
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/mariadb
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo ufw enable
 
 # Generate a self-signed SSL certificate if it doesn't exist
 if [ ! -f /etc/nginx/ssl/nginx.crt ]; then
@@ -11,7 +12,7 @@ fi
 
 if [ ! -f /etc/nginx/sites-available/nginx.conf ]; then
 	# Remove the default Nginx configuration symlink
-	# unlink /etc/nginx/sites-enabled/default
+	unlink /etc/nginx/sites-enabled/default
 
 	# Replace '$DOMAIN_NAME' with the actual domain name in the nginx configuration
 	sed -ie s/'$DOMAIN_NAME'/$DOMAIN_NAME/g /etc/nginx/sites-available/nginx.conf
@@ -25,6 +26,9 @@ if [ ! -f /etc/nginx/sites-available/nginx.conf ]; then
 	sed -ie 's/gzip on;/gzip off;/g' /etc/nginx/nginx.conf
 
 fi
+
+sudo ufw allow 'Nginx Secure'
+
 
 # run an external command from within the script
 # while preserving the process ID (PID) of the script itself.

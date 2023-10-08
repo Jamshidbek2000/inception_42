@@ -8,11 +8,11 @@ RUN apt-get update && apt-get install -y \
   php-fpm
 
 COPY configs/docker-entrypoint.sh /root/docker-entrypoint.sh
-COPY configs/wp-config.php /
+COPY configs/wp-config.php /root/wp-config.php
 
 WORKDIR "/root/"
 
-# ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["tail", "-f", "/dev/null"]
 
 

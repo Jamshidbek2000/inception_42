@@ -23,11 +23,10 @@ if [[ ! -f /var/www/html/wp-config.php ]]; then
   # Change permissions
   chown -R www-data:www-data /var/www/html
 
-  sed -ie s/'$DB_NAME'/$DB_NAME/g /var/www/html/wp-config.php
-  sed -ie s/'$DB_USER'/$DB_USER/g /var/www/html/wp-config.php
-  sed -ie s/'$DB_USER_PWD'/$DB_USER_PWD/g /var/www/html/wp-config.php
+#   sed -ie s/'$DB_NAME'/$DB_NAME/g /var/www/html/wp-config.php
+#   sed -ie s/'$DB_USER'/$DB_USER/g /var/www/html/wp-config.php
+#   sed -ie s/'$DB_USER_PWD'/$DB_USER_PWD/g /var/www/html/wp-config.php
 
 fi
 
-mkdir -p /run/php
 php-fpm7.3 -F

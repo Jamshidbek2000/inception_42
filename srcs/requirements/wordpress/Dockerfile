@@ -5,7 +5,15 @@ RUN apt-get update && apt-get install -y \
   curl \
   mariadb-server \
   php \
-  php-fpm
+  php-fpm \
+  php-cli \
+  php-mysql \
+  php-mbstring \
+  php-xml \
+  sendmail \
+  mariadb-client \
+  && rm -rf /var/lib/apt/lists/* \
+  && mkdir /run/php
 
 COPY configs/docker-entrypoint.sh /root/docker-entrypoint.sh
 COPY configs/wp-config.php /root/wp-config.php
@@ -13,7 +21,7 @@ COPY configs/wp-config.php /root/wp-config.php
 WORKDIR "/root/"
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["tail", "-f", "/dev/null"]
+# CMD ["tail", "-f", "/dev/null"]
 
 
 

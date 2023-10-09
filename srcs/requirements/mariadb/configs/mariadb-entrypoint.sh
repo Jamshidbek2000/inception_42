@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Start the MySQL service
+sleep 10
 service mysql start
 
 # Wait for MySQL to start

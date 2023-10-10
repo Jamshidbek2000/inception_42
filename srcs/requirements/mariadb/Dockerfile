@@ -1,19 +1,15 @@
-FROM debian:buster
+FROM alpine:3.18
 
+RUN apk add mysql mysql-client
 
-RUN apt-get update -y && apt-get install mariadb-server -y
+RUN mkdir -p /run/mysqld
+RUN mkdir -p /var/lib/mysql
 
+COPY tools/ /
+RUN mv /my.cnf /usr/local/bin/
 
-EXPOSE 3306
+# EXPOSE 3306
 
+ENTRYPOINT ["sh", "entrypoint.sh"]
 
-COPY configs/mariadb-entrypoint.sh /
-COPY configs/50-server.cnf /etc/mysql/mariadb.conf.d/
-
-RUN chmod +x mariadb-entrypoint.sh
-
-# ENTRYPOINT ["./mariadb-entrypoint.sh"]
-
-# CMD "./mariadb-entrypoint.sh"
-
-CMD ["tail", "-f", "/dev/null"]
+# CMD ["tail", "-f", "/dev/null"]

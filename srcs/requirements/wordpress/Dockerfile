@@ -21,6 +21,8 @@ COPY configs/wp-config.php /root/wp-config.php
 WORKDIR "/root/"
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
+
+CMD ["php-fpm7.3", "-F"]
 # CMD ["tail", "-f", "/dev/null"]
 
 

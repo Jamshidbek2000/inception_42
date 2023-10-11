@@ -3,20 +3,20 @@ version: '3.9'
 
 services:
 
-  # mariadb:
-  #   build:
-  #     context: requirements/mariadb
-  #     dockerfile: Dockerfile
-  #   image: mariadb_inception
-  #   container_name: mariadb
-  #   init: true
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - inception
-  #   volumes:
-  #     - ../data/mariadb:/var/lib/mysql
-  #   restart: unless-stopped
+  mariadb:
+    build:
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb_inception
+    container_name: mariadb
+    init: true
+    env_file:
+      - .env
+    networks:
+      - inception
+    volumes:
+      - ../data/mariadb:/var/lib/mysql
+    restart: unless-stopped
 
 
   nginx:
@@ -37,24 +37,24 @@ services:
     restart: unless-stopped
 
 
-  # wordpress:
-  #   build:
-  #     context: requirements/wordpress
-  #     dockerfile: Dockerfile
-  #   image: wordpress_inception
-  #   container_name: wordpress
-  #   init: true
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - inception
-  #   expose:
-  #     - "9000"
-  #   depends_on:
-  #     - mariadb
-  #   volumes:
-  #     - ../data/wordpress:/var/www/html
-  #   restart: unless-stopped
+  wordpress:
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    image: wordpress_inception
+    container_name: wordpress
+    init: true
+    env_file:
+      - .env
+    networks:
+      - inception
+    expose:
+      - "9000"
+    depends_on:
+      - mariadb
+    volumes:
+      - ../data/wordpress:/var/www/html
+    restart: unless-stopped
 
 networks:
   inception:

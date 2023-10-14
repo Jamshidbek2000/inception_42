@@ -1,4 +1,3 @@
-
 version: '3.9'
 
 services:
@@ -7,7 +6,7 @@ services:
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
-    image: mariadb_inception
+    # image: mariadb_inception
     container_name: mariadb
     init: true
     env_file:
@@ -19,29 +18,11 @@ services:
     restart: unless-stopped
 
 
-  nginx:
-    build:
-      context: requirements/nginx
-      dockerfile: Dockerfile
-    image: nginx_inception
-    container_name: nginx
-    init: true
-    env_file:
-      - .env
-    networks:
-      - inception
-    volumes:
-      - ../data/wordpress:/var/www/html
-    ports:
-      - "443:443"
-    restart: unless-stopped
-
-
   wordpress:
     build:
       context: requirements/wordpress
       dockerfile: Dockerfile
-    image: wordpress_inception
+    # image: wordpress_inception
     container_name: wordpress
     init: true
     env_file:
@@ -54,6 +35,26 @@ services:
       - mariadb
     volumes:
       - ../data/wordpress:/var/www/html
+    restart: unless-stopped
+
+
+  nginx:
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    # image: nginx_inception
+    container_name: nginx
+    init: true
+    env_file:
+      - .env
+    networks:
+      - inception
+    volumes:
+      - ../data/wordpress:/var/www/html
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
     restart: unless-stopped
 
 networks:

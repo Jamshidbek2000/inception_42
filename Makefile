@@ -1,27 +1,44 @@
-name = inception
-
-all: bind_mount
-	@printf "Launch configuration ${name}...\n"
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up 
-
-build: bind_mount
-	@printf "Building configuration ${name}...\n"
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
+up:
+	./srcs/docker-compose up --build -d
 
 down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env down
+	@if [ -d "data/wordpress" ]; then rm -r "data/wordpress"; fi
+	@if [ -d "data/mariadb" ]; then rm -r "data/mariadb"; fi
+	./srcs/docker-compose down
 
-re: down
-	@printf "Rebuild configuration ${name}...\n"
-	@docker rmi nginx_inception
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
+clean: down
+	@if [ -n "$(shell docker volume ls -q -f name=mariadb_volume)" ]; then \
+		docker volume rm -f mariadb_volume; \
+	fi
+	@if [ -n "$(shell docker volume ls -q -f name=wordpress_volume)" ]; then \
+		docker volume rm -f wordpress_volume; \
+	fi
 
-fclean:
-	@printf "Total clean of all configurations docker\n"
-	@docker stop $$(docker ps -qa)
-	@docker system prune --all --force --volumes
-	@docker network prune --force
-	@docker volume prune --force
+stop:
+	@if docker ps -a | grep -q wordpress; then docker stop wordpress && docker rm wordpress; fi
+	@if docker ps -a | grep -q nginx; then docker stop nginx && docker rm nginx; fi
+	@if docker ps -a | grep -q mariadb; then docker stop mariadb && docker rm mariadb; fi
 
-.PHONY	: all build down re fclean bind_mount
+fclean: clean stop
+
+
+del-i: fclean
+	@if docker images -q wordpress_inception; then docker rmi wordpress_inception; fi
+	@if docker images -q nginx_inception; then docker rmi nginx_inception; fi
+	@if docker images -q mariadb_inception; then docker rmi mariadb_inception; fi
+
+	
+del: stop
+	@if [ -d "data/wordpress" ]; then rm -r "data/wordpress"; fi
+	@if [ -d "data/mariadb" ]; then rm -r "data/mariadb"; fi
+	docker container prune &&\
+	docker image prune &&\
+	docker system prune -a -f
+
+re: 
+	make clean && make up
+
+stop-all:
+	docker stop $$(docker ps -q)
+
+.DEFAULT_GOAL := up

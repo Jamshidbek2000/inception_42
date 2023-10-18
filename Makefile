@@ -5,8 +5,10 @@ down:
 	docker-compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	rm -rf /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb/*
-	rm -rf /Users/jergashe/Documents/projects/all_inception/inception_42/data/wordpress/*
+	rm -rf /home/jergashe/inception_42/data/mariadb/*
+	rm -rf /home/jergashe/inception_42/data/wordpress/*
+	# 	rm -rf /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb/*
+	# rm -rf /Users/jergashe/Documents/projects/all_inception/inception_42/data/wordpress/*
 	@if [ -n "$(shell docker volume ls -q -f name=mariadb)" ]; then \
 		docker volume rm -f mariadb; \
 	fi

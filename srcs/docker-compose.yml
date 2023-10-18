@@ -68,7 +68,8 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/wordpress
+      device: /home/jergashe/inception_42/data/wordpress
+      # device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/wordpress
   
   mariadb:
     name: mariadb
@@ -76,5 +77,6 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb
+      device: /home/jergashe/inception_42/data/mariadb
+      # device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb
 

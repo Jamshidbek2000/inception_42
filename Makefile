@@ -2,16 +2,16 @@ up:
 	docker-compose -f ./srcs/docker-compose.yml up --build -d
 
 down:
-	@if [ -d "data/wordpress" ]; then rm -r "data/wordpress"; fi
-	@if [ -d "data/mariadb" ]; then rm -r "data/mariadb"; fi
 	docker-compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	@if [ -n "$(shell docker volume ls -q -f name=mariadb_volume)" ]; then \
-		docker volume rm -f mariadb_volume; \
+	rm -rf /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb/*
+	rm -rf /Users/jergashe/Documents/projects/all_inception/inception_42/data/wordpress/*
+	@if [ -n "$(shell docker volume ls -q -f name=mariadb)" ]; then \
+		docker volume rm -f mariadb; \
 	fi
-	@if [ -n "$(shell docker volume ls -q -f name=wordpress_volume)" ]; then \
-		docker volume rm -f wordpress_volume; \
+	@if [ -n "$(shell docker volume ls -q -f name=wordpress)" ]; then \
+		docker volume rm -f wordpress; \
 	fi
 
 stop:

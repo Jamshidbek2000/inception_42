@@ -14,7 +14,7 @@ services:
     networks:
       - inception
     volumes:
-      - ../data/mariadb:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     restart: unless-stopped
 
 
@@ -29,12 +29,12 @@ services:
       - .env
     networks:
       - inception
-    expose:
-      - "9000"
+    # expose:
+    #   - "9000"
     depends_on:
       - mariadb
     volumes:
-      - ../data/wordpress:/var/www/html
+      - wordpress:/var/www/html
     restart: unless-stopped
 
 
@@ -50,7 +50,7 @@ services:
     networks:
       - inception
     volumes:
-      - ../data/wordpress:/var/www/html
+      - wordpress:/var/www/html
     ports:
       - "443:443"
     depends_on:
@@ -61,20 +61,20 @@ networks:
   inception:
     driver: bridge
 
-# volumes:
-#   wordpress:
-#     # name: wordpress_volume
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/jergashe/Documents/projects/all_inception/docker-compose/data/wordpress
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/wordpress
   
-  # mariadb:
-  #   name: mariadb_volume
-  #   driver: local
-  #   driver_opts:
-  #     type: 'none'
-  #     o: 'bind'
-  #     device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /Users/jergashe/Documents/projects/all_inception/inception_42/data/mariadb
 

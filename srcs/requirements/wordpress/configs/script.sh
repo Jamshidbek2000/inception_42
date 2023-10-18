@@ -20,7 +20,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp user create $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root --porcelain
 
 	# Move PHP-FPM configuration
-	mv /www.conf /etc/php/7.3/fpm/pool.d/
+	cp /www.conf /etc/php/7.3/fpm/pool.d/
 
 	# Create a directory for PHP-FPM
 	mkdir -p /run/php

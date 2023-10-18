@@ -1,10 +1,10 @@
 up:
-	./srcs/docker-compose up --build -d
+	docker-compose -f ./srcs/docker-compose.yml up --build -d
 
 down:
 	@if [ -d "data/wordpress" ]; then rm -r "data/wordpress"; fi
 	@if [ -d "data/mariadb" ]; then rm -r "data/mariadb"; fi
-	./srcs/docker-compose down
+	docker-compose -f ./srcs/docker-compose.yml down
 
 clean: down
 	@if [ -n "$(shell docker volume ls -q -f name=mariadb_volume)" ]; then \

@@ -20,5 +20,5 @@ First of all, I was introduced to the world of containers. Now, no more saying "
 
 Secondly, I learned how to make something completely unknown word completely from zero. To be more precise, NGinX, Wordpress and Mariadb.
 
-
+<img width="671" alt="structure" src="https://github.com/Jamshidbek2000/inception_42/assets/106934634/7859fa5f-48d8-4440-9ed4-8d6ba37c1769">
 

@@ -1,5 +1,5 @@
 # Inception
-## What is the project about?
+## About the project
 This project requires creating and configuring 3 services: 
 1. NGinX - a web server that delivers the web content from your website.
 2. Wordpress - a content management system (CMS) that simplifies the creation and organization of web content, offering a user-friendly platform for website administrators to publish, edit, and manage posts, pages, and multimedia.
@@ -18,7 +18,7 @@ This project requires creating and configuring 3 services:
 ## What have I learned from the project?
 First of all, I was introduced to the world of containers. Now, no more saying "It works on my machine" =)
 
-Secondly, I learned how to make something completely unknown word completely from zero. To be more precise, NGinX, Wordpress and Mariadb.
+Secondly, I learned how to make something completely unknown work completely from zero. To be more precise, NGinX, Wordpress and Mariadb.
 
 <img width="671" alt="structure" src="https://github.com/Jamshidbek2000/inception_42/assets/106934634/7859fa5f-48d8-4440-9ed4-8d6ba37c1769">
 
